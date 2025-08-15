@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{% if jogo %}Editar Jogo{% else %}Adicionar Jogo{% endif %}</h1>
+
+<form method="POST">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" value="{{ jogo.get_titulo() if jogo else '' }}" required>
+
+    <label for="genero">Gênero:</label>
+    <input type="text" id="genero" name="genero" value="{{ jogo.get_genero() if jogo else '' }}" required>
+
+    <label for="plataforma">Plataforma:</label>
+    <input type="text" id="plataforma" name="plataforma" value="{{ jogo.get_plataforma() if jogo else '' }}" required>
+
+    <label for="preco">Preço:</label>
+    <input type="number" id="preco" name="preco" value="{{ jogo.get_preco() if jogo else '' }}" required>
+
+    <button type="submit">{% if jogo %}Atualizar{% else %}Adicionar{% endif %}</button>
+
+    <a href="{{ url_for('listar_jogos') }}">Cancelar</a>
+</form>
+{% endblock %}

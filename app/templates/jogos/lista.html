@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Jogos</h1>
+
+<a href="{{ url_for('criar_jogo') }}">Adicionar um jogo</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Gênero</th>
+            <th>Plataforma</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for jogo in jogos %}
+        <tr>
+            <td>{{ jogo.get_id() }}</td>
+            <td>{{ jogo.get_titulo() }}</td>
+            <td>{{ jogo.get_genero() }}</td>
+            <td>{{ jogo.get_plataforma() }}</td>
+            <td>R$ {{ jogo.get_preco() }}</td>
+            <td>
+                <a href="{{ url_for('editar_jogo', id=jogo.get_id()) }}">Editar</a> |
+                <a href="{{ url_for('excluir_jogo', id=jogo.get_id()) }}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    <a href="{{ url_for('listar_compras') }}">Ver compras</a>
+</p>
+{% endblock %}

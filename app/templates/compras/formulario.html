@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ 'Editar Compra' if compra else 'Nova Compra' }}</h1>
+
+<form method="POST">
+    <label for="jogo_id">Jogo:</label>
+    <select name="jogo_id" id="jogo_id" required>
+        <option value="" disabled selected hidden>Selecione um jogo</option>
+        {% for jogo in jogos %}
+        <option value="{{ jogo.get_id() }}" 
+            {% if compra and jogo.get_id() == compra.get_jogo_id() %}selected{% endif %}>
+            {{ jogo.get_titulo() }} - R$ {{ jogo.get_preco() }}
+        </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="cliente_nome">Cliente:</label>
+    <input type="text" name="cliente_nome" id="cliente_nome"
+           value="{{ compra.get_cliente_nome() if compra else '' }}" required><br><br>
+
+    <label for="data_compra">Data da compra:</label>
+    <input type="date" name="data_compra" id="data_compra"
+           value="{{ compra.get_data_compra() if compra else '' }}" required><br><br>
+
+
+    <button type="submit">{% if compra %}Atualizar{% else %}Adicionar{% endif %}</button>
+</form>
+
+<a href="{{ url_for('listar_compras') }}">Voltar</a>
+
+{% endblock %}
